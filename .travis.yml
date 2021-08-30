@@ -16,9 +16,9 @@ script: "./gradlew clean build"
 
 
 before_deploy:
-  - zip -r studyaws-springboot2-webservice *
+  - zip -r studyAws-springboot2-webservice *
   - mkdir -p deploy
-  - mv studyaws-springboot2-webservice.zip deploy/studyaws-springboot2-webservice.zip
+  - mv studyAws-springboot2-webservice.zip deploy/studyAws-springboot2-webservice.zip
 
 deploy:
   - provider: s3
@@ -37,7 +37,7 @@ deploy:
     bucket: studyaws-springboot-build
     key: studyaws-springboot2-webservice.zip
     bundle_type: zip
-    application: studyaws-springboot2-webservice
+    application: studyAws-springboot2-webservice
     deployment_group: studyaws-springboot2-webservice-group
     region: ap-northeast-2
     wait-until-deployed: true
