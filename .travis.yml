@@ -8,10 +8,28 @@ branches:
 #Travis CI 서버의 Home
 cache:
   directories:
-    - '$HOME/.m2/repositry'
+    - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 
 script: "./gradlew clean build"
+
+
+
+before_deploy:
+  - zip -r studyaws-springboot2-webservice *
+  - mkdir -p deploy
+  - mv studyaws-springboot2-webservice.zip deploy/studyaws-springboot2-webservice.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: studyaws-springboot-build
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private
+    local_dir: deploy
+    wait-until-deployes: true
 
 #CI 실행 완료시 메일로 알람
 notifications:
